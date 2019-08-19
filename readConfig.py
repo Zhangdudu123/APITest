@@ -8,6 +8,8 @@ import os
 import configparser
 import get_path_info
 
+
+
 path = get_path_info.get_path() #调用实例化，返回当前项目路径
 config_path = os.path.join(path,'config.ini') #返回'config.ini'的路径
 config = configparser.ConfigParser() #调用外部的读取配置文件的方法
