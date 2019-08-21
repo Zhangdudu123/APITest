@@ -12,35 +12,26 @@ import get_path_info
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email.header import Header
 
-# readConfig = readConfig.configpath
-# subject = readConfig.get_email('subject') #从配置文件中读取，邮件主题
-# app = str(readConfig.get_email('app')) #从配置文件中读取，邮件类型
-# addressee = readConfig.get_email('addressee') #从配置文件中读取，邮件收件人
-# cc = readConfig.get_email('cc') #从配置文件中读取，邮件抄送人
-# report_path = os.path.join(get_path_info.get_path(),'/Result_report/Report/','report.html') #获取测试报告路径
-report_path = os.path.join(get_path_info.get_path(),'report.html') #获取测试报告路径
+
+readConfig = readConfig.ReadConfig()
+smtp_server = readConfig.get_email('smtp_server') #从配置文件中读取邮箱服务器地址
+Port = readConfig.get_email('Port') #从配置文件中读取端口
+Sender = readConfig.get_email('Sender') #从配置文件中读取邮箱用户名
+Pwd = readConfig.get_email('pwd') #从配置文件中读取授权码
+Receiver = readConfig.get_email('Receiver') #从配置文件中读取邮件收件人
+Title = readConfig.get_email('title') #从配置文件中读取标题
+report_path = os.path.join(get_path_info.get_path(),'result/ReportCN.html') #获取测试报告路径
+# report_path = '/Users/zhangwengao/workspace/duobei/python/APITest/result/ReportCN.html'
 print(report_path)
-#
-# report_path = os.getcwd()[:-5] + '/Result_report/Report' + "/"
-# print("11",report_path)
 
-
-
-smtp_server = "smtp.163.com"  # 邮箱服务器地址
-sender = '13501331103@163.com'  # 邮箱用户名
-pwd = 'zhang511520'  # 邮箱密码：需要使用授权码
-receiver = '807306906@qq.com'  # 收件人，多个收件人用逗号隔开
-Port = "465"
+Content = '测试发送邮件，163发件，接收方一个是qq邮箱111555'
 
 class Send_email():
 
 
-
-    def __init__(self,username,passwd,recv,title,content,
-                 file=None,ssl=False,
-                 email_host='smtp.163.com',port=25,ssl_port=465):
+    def __init__(self,rec,username=Sender,passwd=Pwd,title=Title,content=Content,file=report_path,ssl=True,
+                 email_host=smtp_server,port=25,ssl_port=Port):
         '''
         :param username: 用户名
         :param passwd: 密码
@@ -53,10 +44,9 @@ class Send_email():
         :param port: 非安全链接端口，默认为25
         :param ssl_port: 安全链接端口，默认为465
         '''
-
         self.username = username #用户名
         self.passwd = passwd #密码
-        self.recv = recv #收件人，多个要传list ['a@qq.com','b@qq.com]
+        self.recv = rec #收件人，多个要传list ['a@qq.com','b@qq.com]
         self.title = title #邮件标题
         self.content = content #邮件正文
         self.file = file #附件路径，如果不在当前目录下，要写绝对路径
@@ -65,11 +55,22 @@ class Send_email():
         self.ssl = ssl #是否安全链接
         self.ssl_port = ssl_port #安全链接端口
 
+
+
     def send_mail(self):
         msg = MIMEMultipart()
+        print('11111111')
+        if self.file:
+            print(True)
+            print(self.file)
+        else:
+            print(self.file)
+            print(False)
+
         # 发送内容的对象
         if self.file:  # 处理附件的
             file_name = os.path.split(self.file)[-1]  # 只取文件名，不取路径
+            print(file_name)
             try:
                 f = open(self.file, 'rb').read()
             except Exception as e:
@@ -103,18 +104,11 @@ class Send_email():
             print('发送成功！')
         self.smtp.quit()
 
+
 if __name__ == '__main__':
-    m = Send_email(
-        username='13501331103@163.com',
-        passwd='zhang511520',
-        recv=['807306906@qq.com'],
-        title='发送邮件20180205',
-        content='测试发送邮件，qq发件，接收方一个是163邮箱，另一个是qq邮箱。20180205',
-        # file=r'/Users/zhangwengao/workspace/duobei/python/APITest/report.html',
-        file=report_path,
-        ssl=True
-    )
+    m = Send_email(rec=['1242687626@qq.com'])
     m.send_mail()
+
 
 
 

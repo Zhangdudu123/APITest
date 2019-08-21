@@ -13,8 +13,9 @@ import paramunittest
 
 from common.request import HttpClient
 
-url = get_url_params.geturlParams().get_url()
-login_xls = readExcel.readExcel().get_xls('userCase.xlsx','login')
+url = get_url_params.geturlParams().get_create_project_url()
+# print("1111",url)
+login_xls = readExcel.readExcel().get_xls('userCase.xlsx','createProject')
 
 @paramunittest.parametrized(*login_xls)
 class testUserLogin(unittest.TestCase):
@@ -60,25 +61,65 @@ class testUserLogin(unittest.TestCase):
         print('测试结束，输出log完结\n\n')
 
 
+
+    # def checkResult(self):
+    #     """
+    #     断言测试结果
+    #     :return:
+    #     """
+    #     print(self.case_name,self.path,self.query,self.menthod)
+    #     url = "http://api_dev.duobeiyun.com"
+    #     new_url = url + self.query
+    #     print('new_url：',new_url)
+    #     #将一个完整的URL中的name=&pwd=转换为{'name':'xxx','pwd':'bbb'}
+    #     # data = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(new_url).query))
+    #     data = urllib.parse.parse_qsl(urllib.parse.urlsplit(new_url).query)
+    #     print('data：',data)
+    #     #根据Excel中的method调用run_main来进行requests请求，并拿到响应
+    #     response = HttpClient().request(self.menthod,url,data)
+    #     result = json.loads(response)
+    #     print('response：',result)
+    #     if self.case_name == 'case001':
+    #         self.assertEqual(result['code'],200)
+    #     if self.case_name == 'login_err':
+    #         self.assertEqual(result['code'],-1)
+    #     if self.case_name == 'login_null':
+    #         self.assertEqual(result['code'],10001)
+
+
+
+
+
+
+
+
+
+
     def checkResult(self):
         """
         断言测试结果
         :return:
         """
-        url = "http://127.0.0.1:8888/login?"
+        print(self.case_name,self.path,self.query,self.menthod)
+        # url = "http://127.0.0.1:8888/login?"
         new_url = url + self.query
+        print('new_url：', new_url)
         #将一个完整的URL中的name=&pwd=转换为{'name':'xxx','pwd':'bbb'}
         data = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(new_url).query))
+        # json.dumps(data)
+        print(type(data))
+
+        print('data：',data)
         #根据Excel中的method调用run_main来进行requests请求，并拿到响应
         response = HttpClient().request(self.menthod,url,data)
         result = json.loads(response)
         print('response：',result)
-        if self.case_name == 'login':
-            self.assertEqual(result['code'],200)
-        if self.case_name == 'login_err':
-            self.assertEqual(result['code'],-1)
-        if self.case_name == 'login_null':
-            self.assertEqual(result['code'],10001)
+        if self.case_name == 'case001':
+            self.assertEqual(result['code'],9003)
+        # if self.case_name == 'login_err':
+        #     self.assertEqual(result['code'],-1)
+        # if self.case_name == 'login_null':
+        #     self.assertEqual(result['code'],10001)
 
 
 

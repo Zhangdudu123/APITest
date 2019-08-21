@@ -10,11 +10,11 @@ readConfig = readConfig.ReadConfig()
 
 class geturlParams(): #从配置文件中读取的数据进行拼接
 
-    def get_url(self):
-        new_url = readConfig.get_http('scheme') + '://' + readConfig.get_http('baseurl') + ':8888' + '/login' + '?'
+    def get_create_project_url(self):
+        new_url = readConfig.get_https('scheme') + '://' + readConfig.get_https('baseurl')  + readConfig.get_https('path')
         return new_url
 
 
 
 if __name__ == '__main__':
-    print(geturlParams().get_url())
+    print(geturlParams().get_create_project_url())
