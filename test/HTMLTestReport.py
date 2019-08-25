@@ -8,7 +8,7 @@
 
 import unittest
 import HTMLTestReportCN
-
+from common import HTMLTestRunner
 
 
 #测试用例
@@ -101,7 +101,15 @@ if __name__ == '__main__':
         #description='详细测试用例结果',
         tester=u"Findyou"
         )
-    print('2222222222222222222')
+
+    # runner = HTMLTestRunner.HTMLTestRunner(
+    #         stream=fp,
+    #         title=u'自动化测试报告',
+    #         description='详细测试用例结果',
+    #         # tester='dudu'
+    # )
+    #
+    # print('2222222222222222222')
     #运行测试用例
     runner.run(Suite())
     # 关闭文件，否则会无法生成文件

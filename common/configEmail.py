@@ -21,11 +21,11 @@ Sender = readConfig.get_email('Sender') #从配置文件中读取邮箱用户名
 Pwd = readConfig.get_email('pwd') #从配置文件中读取授权码
 Receiver = readConfig.get_email('Receiver') #从配置文件中读取邮件收件人
 Title = readConfig.get_email('title') #从配置文件中读取标题
-report_path = os.path.join(get_path_info.get_path(),'result/ReportCN.html') #获取测试报告路径
+report_path = os.path.join(get_path_info.get_path(),'result','report.html') #获取测试报告路径
 # report_path = '/Users/zhangwengao/workspace/duobei/python/APITest/result/ReportCN.html'
 print(report_path)
 
-Content = '测试发送邮件，163发件，接收方一个是qq邮箱111555'
+Content = '测试发送邮件，163发件'
 
 class Send_email():
 
@@ -59,13 +59,6 @@ class Send_email():
 
     def send_mail(self):
         msg = MIMEMultipart()
-        print('11111111')
-        if self.file:
-            print(True)
-            print(self.file)
-        else:
-            print(self.file)
-            print(False)
 
         # 发送内容的对象
         if self.file:  # 处理附件的
@@ -106,7 +99,7 @@ class Send_email():
 
 
 if __name__ == '__main__':
-    m = Send_email(rec=['1242687626@qq.com'])
+    m = Send_email(rec=['807306906@qq.com'])
     m.send_mail()
 
 
