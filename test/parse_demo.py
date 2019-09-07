@@ -30,3 +30,4 @@ dict_query =urllib.parse.parse_qs(query)  #使用parse_qs返回字典
 print("使用parse_qsl返回列表  ：",lst_query)
 print("将返回的列表转换为字典 ：",dict1)
 print("使用parse_qs返回字典   : ",dict_query)
+

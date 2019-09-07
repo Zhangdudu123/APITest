@@ -25,6 +25,14 @@ class readExcel():
         return cls
 
 
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     print(readExcel().get_xls('userCase.xlsx','login'))
     print(readExcel().get_xls('userCase.xlsx','login')[0][1]) #获取第1列第1行的单元格内容
